@@ -1,2 +1,2 @@
-# Falling-Everything-Simulator-Java-Edition-
+# Falling-Everything-Simulator
 A simulator which inspired by Noita
