@@ -5,6 +5,11 @@ import java.awt.Graphics2D;
 import main.Gamepanel;
 
 public class Particle{
+    public static int ParticleCategories = 3;
+    public static int Sand = 0;
+    public static int Water = 1;
+    public static int Stone = 2;
+
     protected int x, y, d_x, d_y;
     protected Color particle_color;
     protected int density;
