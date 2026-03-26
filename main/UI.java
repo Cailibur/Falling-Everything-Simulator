@@ -64,15 +64,20 @@ public class UI {
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 150f));
         String maintext = "Falling Everything";
         String subtext = "Simulator";
+        String quest = "Press Enter to Start";
         int mainX = getXforCenterText(maintext, g2d);
-        int mainY = 350, subY = 550;
+        int mainY = 350, subY = 430;
         g2d.setColor(Color.gray);
         g2d.drawString(maintext, mainX+5, mainY+5);
         g2d.setColor(Color.white);
         g2d.drawString(maintext, mainX, mainY);
-        g2d.setFont(g2d.getFont().deriveFont(Font.PLAIN,100f));
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,50f));
         int subX = getXforCenterText(subtext, g2d);
         g2d.drawString(subtext, subX, subY);
+        g2d.setFont(g2d.getFont().deriveFont(Font.PLAIN,80f));
+        int questX = getXforCenterText(quest, g2d);
+        int questY = 600;
+        g2d.drawString(quest, questX, questY);
         //System.out.println(X);
     }
 

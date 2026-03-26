@@ -7,8 +7,7 @@ import main.Gamepanel;
 public class Sand extends Particle{
     
     public Sand(int x, int y, int d_x, int d_y) {
-        super(x, y, d_x, d_y, 2, "Sand");
-        this.particle_color = Color.yellow;
+        super(x, y, d_x, d_y, 3, "Sand", Color.yellow);
     }
 
     @Override

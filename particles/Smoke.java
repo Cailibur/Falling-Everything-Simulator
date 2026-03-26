@@ -4,17 +4,24 @@ import java.awt.Color;
 
 import main.Gamepanel;
 
-public class Water extends Particle{
-    
-    public Water(int x, int y, int d_x, int d_y) {
-        super(x, y, d_x, d_y, 1, "Water", Color.blue);
-    }
+public class Smoke extends Particle {
+    private int lifetime;
 
+    public Smoke(int x, int y, int d_x, int d_y) {
+        super(x, y, d_x, d_y, -1, "Smoke", Color.darkGray);
+        this.lifetime = 10;
+    }
+    
     @Override
     public void update(){
-        if(y != Gamepanel.ScreenRow - 1){
-            if(Gamepanel.Grid[x][y+1] != null){
-                d_y = 1;
+        lifetime--;
+        if(lifetime < 0){
+            Gamepanel.Grid[x][y] = null;
+            return;
+        }
+        if(y != 0){
+            if(Gamepanel.Grid[x][y-1] != null){
+                d_y = Math.random() > 0.5 ? -2 : -1;
                 if(d_x == 0){
                     d_x = Math.random() > 0.5f ? 1 : -1;
                     if(x+d_x >= Gamepanel.ScreenCol || x + d_x < 0){
@@ -27,13 +34,14 @@ public class Water extends Particle{
                     if(x+d_x >= Gamepanel.ScreenCol || x + d_x < 0) d_x = 0;
                 }
             }
-            else d_y++;
+            else d_y = Math.random() > 0.5 ? -2 : -1;
         }
         else{
             if(d_x == 0) d_x = Math.random() > 0.5f ? 1 : -1;
             d_y = 0;
         }
-        super.update();
+        if(d_x > 1) d_x = 1;
+        if(d_x < -1) d_x = -1; 
+        if(lifetime > 0)super.update();
     }
-    
 }

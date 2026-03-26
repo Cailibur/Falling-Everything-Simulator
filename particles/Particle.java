@@ -7,12 +7,15 @@ import java.util.Map;
 import main.Gamepanel;
 
 public class Particle{
-    public static int ParticleCategories = 5;
+    public static int ParticleCategories = 8;
     public static int Sand = 0;
     public static int Water = 1;
     public static int Stone = 2;
     public static int Wood = 3;
     public static int Acid = 4;
+    public static int Gas = 5;
+    public static int Fire = 6;
+    public static int Smoke = 7;
 
     private static final Map<Integer, String> toString = new HashMap<>();
     static {
@@ -21,6 +24,10 @@ public class Particle{
         toString.put(2, "Stone");
         toString.put(3, "Wood");
         toString.put(4, "Acid");
+        toString.put(5, "Gas");
+        toString.put(6, "Fire");
+        toString.put(7, "Smoke");
+
     }
 
     private static final Map<Integer, Color> toColor = new HashMap<>();
@@ -30,6 +37,10 @@ public class Particle{
         toColor.put(2, Color.gray);
         toColor.put(3, new Color(139,69,19));
         toColor.put(4, Color.green);
+        toColor.put(5, new Color(152,251,152));
+        toColor.put(6, Color.red);
+        toColor.put(7, Color.darkGray);
+
     }
 
     public static String getString(int code) {
@@ -54,13 +65,14 @@ public class Particle{
     public boolean Updated;
     protected Gamepanel gp;
     public String particleName;
-    public Particle(int x, int y, int d_x, int d_y, int density, String particleName){
+    public Particle(int x, int y, int d_x, int d_y, int density, String particleName, Color particle_color){
         this.x = x;
         this.y = y;
         this.d_x = d_x;
         this.d_y = d_y;
         this.density = density;
         this.particleName = particleName;
+        this.particle_color = particle_color;
         this.gp = Gamepanel.getInstance();
     }
 

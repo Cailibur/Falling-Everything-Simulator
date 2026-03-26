@@ -5,10 +5,10 @@ import java.awt.Color;
 import main.Gamepanel;
 
 public class Acid extends Particle{
+    private int[] dir = {0, 1, 0, -1, 0};
 
     public Acid(int x, int y, int d_x, int d_y) {
-        super(x, y, d_x, d_y, 1, "Acid");
-        particle_color = Color.green;
+        super(x, y, d_x, d_y, 2, "Acid", Color.green);
     }
     
     @Override
@@ -35,13 +35,14 @@ public class Acid extends Particle{
             if(d_x == 0) d_x = Math.random() > 0.5f ? 1 : -1;
             d_y = 0;
         }
-        int[] dir = {0, 1, 0, -1, 0};
         for(int i = 0; i < 4; i++){
             if(x+dir[i] >= 0 && x+dir[i] < Gamepanel.ScreenCol && y+dir[i+1] >= 0 && y+dir[i+1] < Gamepanel.ScreenCol && Gamepanel.Grid[x+dir[i]][y+dir[i+1]] != null){
                 if(Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Stone" || Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Wood" || Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Sand"){
-                    Gamepanel.Grid[x+dir[i]][y+dir[i+1]] = null;
-                    Gamepanel.Grid[x][y] = null;
-                    return;
+                    if(Math.random() > 0.9){
+                        Gamepanel.Grid[x+dir[i]][y+dir[i+1]] = null;
+                        Gamepanel.Grid[x][y] = Math.random() > 0.85f ? new Gas(x, y, 0, 0) : null;
+                        return;
+                    }
                 }
             }
         }

@@ -115,6 +115,27 @@ public class Gamepanel extends JPanel implements Runnable{
                     Grid[mouseH.mouseX][mouseH.mouseY-1] = new Acid(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
                     Grid[mouseH.mouseX][mouseH.mouseY] = new Acid(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
                 }
+                else if(currentParticle == Particle.Gas){
+                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Gas(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Gas(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Gas(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Gas(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY] = new Gas(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                }
+                else if(currentParticle == Particle.Fire){
+                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Fire(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Fire(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Fire(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Fire(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY] = new Fire(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                }
+                else if(currentParticle == Particle.Smoke){
+                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Smoke(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Smoke(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Smoke(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Smoke(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY] = new Smoke(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                }
             }
         }
         for(int i = ScreenCol - 1 ; i >= 0 ; i--){
