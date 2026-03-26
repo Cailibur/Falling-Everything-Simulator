@@ -1,20 +1,19 @@
 package main;
+
 import javax.swing.JFrame;
 //Main window control system
-public class Window{
-    final private JFrame window;
+public class Window extends JFrame{
     final private Gamepanel gamePanel = Gamepanel.getInstance(); //single instance
     public Window(){
-        this.window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("Falling Everything Simulator");
-        window.add(gamePanel); // bind the gamepanel to the window
-        window.pack();
-        window.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setTitle("Falling Everything Simulator");
+        this.add(gamePanel); // bind the gamepanel to the window
+        this.pack();
+        this.setLocationRelativeTo(null);
     }
     public void Show(){
-        window.setVisible(true);
+        this.setVisible(true);
         gamePanel.StartGameThread();
     }
 }

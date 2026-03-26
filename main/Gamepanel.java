@@ -3,43 +3,36 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
 import particles.*;
 import statemachine.*;
 
+/*This is the main gamepanel which I create it as an Instance, and the main game thread was created here for running the project*/
+
 public class Gamepanel extends JPanel implements Runnable{
     //Default Settings
-    public final int blockSize = 4;
-    public final int scale = 1;
-    public final int displaySize = blockSize * scale;
-    public final int ScreenRow = 200;
-    public final int ScreenCol = 300;
-    public final int ScreenHeight = ScreenRow * displaySize;
-    public final int ScreenWidth = ScreenCol * displaySize;
-    public Particle[][] Grid = new Particle[ScreenCol+10][ScreenRow+10];
-
-    //Mouse Tracker
-    private int mouse_dx = 0;
-    private int mouse_dy = 0;
-    private int Acceleration = 5;
-    private int mouseX = 0;
-    private int mouseY = 0;
-    private boolean mouse_dragged = false;
+    public final static int blockSize = 4;
+    public final static int scale = 1;
+    public final static int displaySize = blockSize * scale;
+    public final static int ScreenRow = 200;
+    public final static int ScreenCol = 300;
+    public final static int ScreenHeight = ScreenRow * displaySize;
+    public final static int ScreenWidth = ScreenCol * displaySize;
+    public static Particle[][] Grid = new Particle[ScreenCol+10][ScreenRow+10];
 
     //System
+    final private static Gamepanel gamepanelInstance = new Gamepanel();
     Thread gameThread;
     Timer MainTimer;
     UI MainUI;
-    KeyHandler KeyH = new KeyHandler();
-    final private static Gamepanel gamepanelInstance = new Gamepanel();
+    KeyHandler keyH;
+    MouseHandler mouseH;
 
     //Player(temporary)
-    int X = 100, Y = 100, Speed = 4;
-    int currentParticle = Particle.Sand;
+    public int currentParticle = Particle.Sand;
+    public int originMouseX, originMouseY;
 
     //PanelStateMachine
     Statemachine PanelStateMachine = new Statemachine();
@@ -48,38 +41,15 @@ public class Gamepanel extends JPanel implements Runnable{
     State titleState = new State("TitleState", PanelStateMachine);
 
     private Gamepanel() {
+        keyH = new KeyHandler();
+        mouseH = new MouseHandler();
         this.setPreferredSize(new Dimension(ScreenWidth , ScreenHeight)); // Generate the Window
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); //Open the double buffer
-        this.addKeyListener(KeyH); //Listening the key input
-        MouseAdapter adapeter = new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e){
-                super.mousePressed(e);
-                mouseX = e.getX() / displaySize;
-                mouseY = e.getY() / displaySize;
-                mouse_dragged = true;
-            }
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                mouse_dx = Acceleration * (e.getX() / displaySize - mouseX);
-                mouse_dy = Acceleration * (e.getY() / displaySize - mouseY);
-                super.mouseDragged(e);
-                mouseX = e.getX() / displaySize;
-                mouseY = e.getY() / displaySize;
-                //System.out.println(mouseX+" "+mouseY);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                mouse_dragged = false;
-            }
-        };
+        this.addKeyListener(keyH); //Listening the key input
         //Listening to the mouse(pressing and dragging)
-        this.addMouseListener(adapeter);
-        this.addMouseMotionListener(adapeter);
+        this.addMouseListener(mouseH);
+        this.addMouseMotionListener(mouseH);
         this.setFocusable(true);
     }
 
@@ -107,29 +77,43 @@ public class Gamepanel extends JPanel implements Runnable{
     }
 
     public void update(){
-        if(mouse_dragged && PanelStateMachine.currentState.stateName != "TitleState"){
+        if(mouseH.mouse_dragged && PanelStateMachine.currentState.stateName != "TitleState"){
             //System.out.println(mouseX+" "+mouseY);
-            if(mouseX >= 0 && mouseX < ScreenCol && mouseY >= 0 && mouseY < ScreenRow){
+            if(mouseH.mouseX >= 0 && mouseH.mouseX < ScreenCol && mouseH.mouseY >= 0 && mouseH.mouseY < ScreenRow){
                 if(currentParticle == Particle.Sand){
-                    Grid[1+mouseX][mouseY] = new Sand(1+mouseX, mouseY, mouse_dx, mouse_dy);
-                    Grid[mouseX][1+mouseY] = new Sand(mouseX, 1+mouseY, mouse_dx, mouse_dy);
-                    Grid[mouseX-1][mouseY] = new Sand(mouseX-1, mouseY, mouse_dx, mouse_dy);
-                    Grid[mouseX][mouseY-1] = new Sand(mouseX, mouseY-1, mouse_dx, mouse_dy);
-                    Grid[mouseX][mouseY] = new Sand(mouseX, mouseY, mouse_dx, mouse_dy);
+                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Sand(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Sand(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Sand(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Sand(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY] = new Sand(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
                 }
                 else if(currentParticle == Particle.Water){
-                    Grid[1+mouseX][mouseY] = new Water(1+mouseX, mouseY, mouse_dx, mouse_dy);
-                    Grid[mouseX][1+mouseY] = new Water(mouseX, 1+mouseY, mouse_dx, mouse_dy);
-                    Grid[mouseX-1][mouseY] = new Water(mouseX-1, mouseY, mouse_dx, mouse_dy);
-                    Grid[mouseX][mouseY-1] = new Water(mouseX, mouseY-1, mouse_dx, mouse_dy);
-                    Grid[mouseX][mouseY] = new Water(mouseX, mouseY, mouse_dx, mouse_dy);
+                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Water(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Water(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Water(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Water(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY] = new Water(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
                 }
                 else if(currentParticle == Particle.Stone){
-                    Grid[1+mouseX][mouseY] = new Stone(1+mouseX, mouseY, mouse_dx, mouse_dy);
-                    Grid[mouseX][1+mouseY] = new Stone(mouseX, 1+mouseY, mouse_dx, mouse_dy);
-                    Grid[mouseX-1][mouseY] = new Stone(mouseX-1, mouseY, mouse_dx, mouse_dy);
-                    Grid[mouseX][mouseY-1] = new Stone(mouseX, mouseY-1, mouse_dx, mouse_dy);
-                    Grid[mouseX][mouseY] = new Stone(mouseX, mouseY, mouse_dx, mouse_dy);
+                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Stone(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Stone(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Stone(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Stone(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY] = new Stone(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                }
+                else if(currentParticle == Particle.Wood){
+                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Wood(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Wood(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Wood(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Wood(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY] = new Wood(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                }
+                else if(currentParticle == Particle.Acid){
+                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Acid(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Acid(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Acid(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Acid(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY] = new Acid(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
                 }
             }
         }
@@ -138,21 +122,27 @@ public class Gamepanel extends JPanel implements Runnable{
                 if(Grid[i][j] != null && !Grid[i][j].Updated && PanelStateMachine.currentState.stateName == "RunningState") Grid[i][j].update();
             }
         }
-        if(KeyH.up) currentParticle = (currentParticle - 1 + Particle.ParticleCategories) % Particle.ParticleCategories;
-        else if(KeyH.down) currentParticle = (currentParticle + 1) % Particle.ParticleCategories;
-        else if(KeyH.left) X -= Speed;
-        else if(KeyH.right) X += Speed;
+        if(keyH.up && !keyH.OnpressUp){
+            currentParticle = (currentParticle - 1 + Particle.ParticleCategories) % Particle.ParticleCategories;
+            keyH.OnpressUp = true;
+        }
+        else if(keyH.down && !keyH.OnpressDown){
+            currentParticle = (currentParticle + 1) % Particle.ParticleCategories;
+            keyH.OnpressDown = true;
+        }
+
         if(PanelStateMachine.currentState.stateName == "TitleState"){
-            if(KeyH.start) PanelStateMachine.ChangeState(runningState);
+            if(keyH.start) PanelStateMachine.ChangeState(runningState);
         }
         else{
-            if(KeyH.pause){
+            if(keyH.pause){
                 PanelStateMachine.ChangeState(pauseState);
             }
             else{
                 PanelStateMachine.ChangeState(runningState);
             }
         }
+        MainUI.update();
     }
 
     @Override
@@ -168,8 +158,6 @@ public class Gamepanel extends JPanel implements Runnable{
             }
         }
         if(MainUI != null) MainUI.draw(g2d);
-        g2d.setColor(Color.white);
-        g2d.fillRect(X, Y, displaySize, displaySize);
         g2d.dispose(); //release the resources using
     }
 }

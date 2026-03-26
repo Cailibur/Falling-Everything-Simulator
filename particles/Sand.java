@@ -2,32 +2,33 @@ package particles;
 
 import java.awt.Color;
 
+import main.Gamepanel;
+
 public class Sand extends Particle{
     
     public Sand(int x, int y, int d_x, int d_y) {
-        super(x, y, d_x, d_y, 2);
+        super(x, y, d_x, d_y, 2, "Sand");
         this.particle_color = Color.yellow;
     }
 
     @Override
     public void update(){
-        if(y != gp.ScreenRow - 1){
-            if(gp.Grid[x][y+1] != null){
-                if(gp.Grid[x][y+1].density < this.density){
+        if(y != Gamepanel.ScreenRow - 1){
+            if(Gamepanel.Grid[x][y+1] != null){
+                if(Gamepanel.Grid[x][y+1].density < this.density){
                     d_y = 1;
-                    particle_color = Color.red;
                 }
                 else{
                     d_x = Math.random() > 0.5f ? 1 : -1;
                     d_y = 1;
-                    if(x+d_x >= 0 && x+d_x <= gp.ScreenCol-1){
-                        if(gp.Grid[x+d_x][y+d_y] != null){
-                            if(gp.Grid[x+d_x][y+d_y].density >= this.density){
+                    if(x+d_x >= 0 && x+d_x <= Gamepanel.ScreenCol-1){
+                        if(Gamepanel.Grid[x+d_x][y+d_y] != null){
+                            if(Gamepanel.Grid[x+d_x][y+d_y].density >= this.density){
                                 d_x = -d_x;
-                                if(x+d_x >= 0 && x+d_x <= gp.ScreenCol-1){
-                                    if(gp.Grid[x+d_x][y+d_y] != null){
-                                        if(x+d_x >= 0 && x+d_x <= gp.ScreenCol-1){
-                                            if(gp.Grid[x+d_x][y+d_y].density >= this.density){
+                                if(x+d_x >= 0 && x+d_x <= Gamepanel.ScreenCol-1){
+                                    if(Gamepanel.Grid[x+d_x][y+d_y] != null){
+                                        if(x+d_x >= 0 && x+d_x <= Gamepanel.ScreenCol-1){
+                                            if(Gamepanel.Grid[x+d_x][y+d_y].density >= this.density){
                                                 d_x = d_y = 0;
                                                 if(particle_color == Color.red) particle_color = Color.GREEN;
                                             } 
