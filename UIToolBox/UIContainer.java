@@ -47,4 +47,9 @@ public class UIContainer {
         int _y = (2*y + height) / 2 + length / 3;
         return _y;
     }
+
+    public void ChangePlace(int _x , int _y){
+        x = _x;
+        y = _y;
+    }
 }

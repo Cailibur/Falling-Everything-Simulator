@@ -18,7 +18,7 @@ public class Acid extends Particle{
                 d_y = 1;
                 //BUG here
                 if(d_x == 0){
-                    d_x = Math.random() > 0.5f ? 1 : -1;
+                    d_x = Math.random() > 0.5f ? 2 : -2;
                     if(x+d_x >= Gamepanel.ScreenCol || x + d_x < 0){
                         d_x = -d_x;
                         if(x+d_x >= Gamepanel.ScreenCol || x + d_x < 0) d_x = 0;
@@ -32,7 +32,7 @@ public class Acid extends Particle{
             else d_y++;
         }
         else{
-            if(d_x == 0) d_x = Math.random() > 0.5f ? 1 : -1;
+            if(d_x == 0) d_x = Math.random() > 0.5f ? 2 : -2;
             d_y = 0;
         }
         for(int i = 0; i < 4; i++){

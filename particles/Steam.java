@@ -32,6 +32,10 @@ public class Steam extends Particle{
         else{
             if(d_x == 0) d_x = Math.random() > 0.5f ? 1 : -1;
             d_y = 0;
+            if(Math.random() > 0.99){
+                Gamepanel.Grid[x][y] = new Water(x, y, 0, 0);
+                return;
+            }
         }
         if(d_x > 1) d_x = 1;
         if(d_x < -1) d_x = -1; 

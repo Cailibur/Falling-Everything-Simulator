@@ -7,7 +7,7 @@ import main.Gamepanel;
 public class Sand extends Particle{
     
     public Sand(int x, int y, int d_x, int d_y) {
-        super(x, y, d_x, d_y, 3, "Sand", Color.yellow);
+        super(x, y, d_x, d_y, 5, "Sand", Color.yellow);
     }
 
     @Override
@@ -15,7 +15,7 @@ public class Sand extends Particle{
         if(y != Gamepanel.ScreenRow - 1){
             if(Gamepanel.Grid[x][y+1] != null){
                 if(Gamepanel.Grid[x][y+1].density < this.density){
-                    d_y = 1;
+                    d_y = Math.random() > 0.5f ? 1 : 2;
                 }
                 else{
                     d_x = Math.random() > 0.5f ? 1 : -1;

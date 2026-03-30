@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
@@ -11,7 +13,7 @@ import statemachine.*;
 
 /*This is the main gamepanel which I create it as an Instance, and the main game thread was created here for running the project*/
 
-public class Gamepanel extends JPanel implements Runnable{
+public class Gamepanel extends JPanel implements Runnable, MouseWheelListener{
     //Default Settings
     public final static int blockSize = 4;
     public final static int scale = 1;
@@ -33,6 +35,7 @@ public class Gamepanel extends JPanel implements Runnable{
     //Player(temporary)
     public int currentParticle = Particle.Sand;
     public int originMouseX, originMouseY;
+    public int drawFieldR = 5;
 
     //PanelStateMachine
     Statemachine PanelStateMachine = new Statemachine();
@@ -50,6 +53,21 @@ public class Gamepanel extends JPanel implements Runnable{
         //Listening to the mouse(pressing and dragging)
         this.addMouseListener(mouseH);
         this.addMouseMotionListener(mouseH);
+        this.addMouseWheelListener(new MouseWheelListener() {
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                if(e.getWheelRotation() == 1){
+                    drawFieldR = Math.max(drawFieldR - 1 , 1);
+                    MainUI.mouseDrawField.ChangeR(drawFieldR);
+                }
+                if(e.getWheelRotation() == -1){
+                    drawFieldR = Math.min(drawFieldR + 1 , 20);
+                    MainUI.mouseDrawField.ChangeR(drawFieldR);
+                }
+            }
+            
+        });
         this.setFocusable(true);
     }
 
@@ -80,69 +98,43 @@ public class Gamepanel extends JPanel implements Runnable{
         if(mouseH.mouse_dragged && PanelStateMachine.currentState.stateName != "TitleState"){
             //System.out.println(mouseX+" "+mouseY);
             if(mouseH.mouseX >= 0 && mouseH.mouseX < ScreenCol && mouseH.mouseY >= 0 && mouseH.mouseY < ScreenRow){
-                if(currentParticle == Particle.Sand){
-                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Sand(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Sand(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Sand(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Sand(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY] = new Sand(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                for(int i = mouseH.mouseX - drawFieldR ; i <= mouseH.mouseX + drawFieldR ; i++){
+                    for(int j = mouseH.mouseY - drawFieldR ; j <= mouseH.mouseY + drawFieldR ; j++){
+                        if((i-mouseH.mouseX)*(i-mouseH.mouseX)+(j-mouseH.mouseY)*(j-mouseH.mouseY) <= drawFieldR*drawFieldR && i >= 0 && i < ScreenCol && j >= 0 && j < ScreenRow){
+                            if(currentParticle == Particle.Sand){
+                                Grid[i][j] = new Sand(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Water){
+                                Grid[i][j] = new Water(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Stone){
+                                Grid[i][j] = new Stone(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Wood){
+                                Grid[i][j] = new Wood(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Acid){
+                                Grid[i][j] = new Acid(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Gas){
+                                Grid[i][j] = new Gas(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Fire){
+                                Grid[i][j] = new Fire(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Smoke){
+                                Grid[i][j] = new Smoke(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Steam){
+                                Grid[i][j] = new Steam(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Lava){
+                                Grid[i][j] = new Lava(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                        }
+                    }
                 }
-                else if(currentParticle == Particle.Water){
-                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Water(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Water(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Water(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Water(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY] = new Water(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                }
-                else if(currentParticle == Particle.Stone){
-                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Stone(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Stone(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Stone(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Stone(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY] = new Stone(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                }
-                else if(currentParticle == Particle.Wood){
-                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Wood(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Wood(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Wood(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Wood(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY] = new Wood(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                }
-                else if(currentParticle == Particle.Acid){
-                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Acid(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Acid(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Acid(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Acid(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY] = new Acid(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                }
-                else if(currentParticle == Particle.Gas){
-                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Gas(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Gas(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Gas(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Gas(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY] = new Gas(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                }
-                else if(currentParticle == Particle.Fire){
-                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Fire(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Fire(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Fire(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Fire(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY] = new Fire(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                }
-                else if(currentParticle == Particle.Smoke){
-                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Smoke(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Smoke(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Smoke(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Smoke(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY] = new Smoke(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                }
-                else if(currentParticle == Particle.Steam){
-                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Steam(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Steam(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Steam(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Steam(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
-                    Grid[mouseH.mouseX][mouseH.mouseY] = new Steam(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
-                }
+                
             }
         }
         for(int i = ScreenCol - 1 ; i >= 0 ; i--){
@@ -187,5 +179,11 @@ public class Gamepanel extends JPanel implements Runnable{
         }
         if(MainUI != null) MainUI.draw(g2d);
         g2d.dispose(); //release the resources using
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mouseWheelMoved'");
     }
 }

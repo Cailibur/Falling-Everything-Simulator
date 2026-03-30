@@ -7,7 +7,7 @@ import java.util.Map;
 import main.Gamepanel;
 
 public class Particle{
-    public static int ParticleCategories = 9;
+    public static int ParticleCategories = 10;
     public static int Sand = 0;
     public static int Water = 1;
     public static int Stone = 2;
@@ -17,6 +17,7 @@ public class Particle{
     public static int Fire = 6;
     public static int Smoke = 7;
     public static int Steam = 8;
+    public static int Lava = 9;
 
     private static final Map<Integer, String> toString = new HashMap<>();
     static {
@@ -29,6 +30,7 @@ public class Particle{
         toString.put(6, "Fire");
         toString.put(7, "Smoke");
         toString.put(8, "Steam");
+        toString.put(9, "Lava");
 
     }
 
@@ -43,6 +45,7 @@ public class Particle{
         toColor.put(6, Color.red);
         toColor.put(7, Color.darkGray);
         toColor.put(8, Color.LIGHT_GRAY);
+        toColor.put(9, new Color(207, 16, 32));
 
     }
 
@@ -82,8 +85,8 @@ public class Particle{
     public void ChangePlace(int x, int y){
         Gamepanel.Grid[this.x][this.y] = null;
         Gamepanel.Grid[x][y] = this;
-        this.d_x += x - this.x;
-        this.d_y += y - this.y;
+        if(x - this.x != 0) this.d_x += (x - this.x) / Math.abs(x - this.x);
+        if(y - this.y != 0) this.d_y += y - this.y / Math.abs(y - this.y);
         this.x = x;
         this.y = y;
     }

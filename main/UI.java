@@ -15,11 +15,14 @@ public class UI {
     private Font maruMonica;
     private TextBox currentParticleTextBox;
     private FormalRectangle currentParticleRect;
+    public DrawField mouseDrawField;
+    private MouseHandler mouseH = MouseHandler.getInstance();
 
     public UI(){
         this.gp = Gamepanel.getInstance();
         this.currentParticleTextBox = new TextBox(1000, 30, 100, 50, true, "Sand");
         this.currentParticleRect = new FormalRectangle(1140, 45, 30, 30, false, Color.yellow);
+        this.mouseDrawField = new DrawField(0, 0, 0, 0, false);
         try {
             InputStream is = getClass().getResourceAsStream("/res/font/x12y16pxMaruMonica.ttf");
             if (is == null) {
@@ -39,8 +42,10 @@ public class UI {
         if(gp.PanelStateMachine.currentState.stateName != "TitleState"){
             currentParticleTextBox.ChangeText(Particle.getString(gp.currentParticle));
             currentParticleRect.ChangeColor(Particle.getColor(gp.currentParticle));
+            mouseDrawField.ChangePlace(mouseH.mouseX, mouseH.mouseY);
             currentParticleTextBox.Draw(g2d);
             currentParticleRect.Draw(g2d);
+            mouseDrawField.Draw(g2d);
         }
         if(gp.PanelStateMachine.currentState.stateName == "PauseState"){
             drawPauseScreen(g2d);

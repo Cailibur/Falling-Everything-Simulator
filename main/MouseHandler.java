@@ -1,13 +1,16 @@
 package main;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+
 
 import javax.swing.event.MouseInputAdapter;
 
 public class MouseHandler extends MouseInputAdapter{
+    private Gamepanel gp = Gamepanel.getInstance();
     public int mouse_dx = 0;
     public int mouse_dy = 0;
-    public int Acceleration = 3;
+    public int Acceleration = 1;
     public int mouseX = 0;
     public int mouseY = 0;
     public int originMouseX = 0;
@@ -27,13 +30,19 @@ public class MouseHandler extends MouseInputAdapter{
     @Override
     public void mouseMoved(MouseEvent e){
         super.mouseMoved(e);
+        mouse_dx = Acceleration * (e.getX() / Gamepanel.displaySize - mouseX);
+        mouse_dy = Acceleration * (e.getY() / Gamepanel.displaySize - mouseY);
         originMouseX = e.getX();
         originMouseY = e.getY();
+        mouseX = originMouseX / Gamepanel.displaySize;
+        mouseY = originMouseY / Gamepanel.displaySize;
     }
 
     @Override
     public void mousePressed(MouseEvent e){
         super.mousePressed(e);
+        mouse_dx = Acceleration * (e.getX() / Gamepanel.displaySize - mouseX);
+        mouse_dy = Acceleration * (e.getY() / Gamepanel.displaySize - mouseY);
         originMouseX = e.getX();
         originMouseY = e.getY();
         mouseX = originMouseX / Gamepanel.displaySize;
@@ -43,9 +52,9 @@ public class MouseHandler extends MouseInputAdapter{
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        super.mouseDragged(e);
         mouse_dx = Acceleration * (e.getX() / Gamepanel.displaySize - mouseX);
         mouse_dy = Acceleration * (e.getY() / Gamepanel.displaySize - mouseY);
-        super.mouseDragged(e);
         originMouseX = e.getX();
         originMouseY = e.getY();
         mouseX = originMouseX / Gamepanel.displaySize;
@@ -55,6 +64,12 @@ public class MouseHandler extends MouseInputAdapter{
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
+        mouse_dx = Acceleration * (e.getX() / Gamepanel.displaySize - mouseX);
+        mouse_dy = Acceleration * (e.getY() / Gamepanel.displaySize - mouseY);
+        originMouseX = e.getX();
+        originMouseY = e.getY();
+        mouseX = originMouseX / Gamepanel.displaySize;
+        mouseY = originMouseY / Gamepanel.displaySize;
         mouse_dragged = false;
     }
     
