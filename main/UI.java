@@ -18,8 +18,8 @@ public class UI {
 
     public UI(){
         this.gp = Gamepanel.getInstance();
-        this.currentParticleTextBox = new TextBox(1000, 50, 100, 50, true, "Sand");
-        this.currentParticleRect = new FormalRectangle(1130, 65, 30, 30, false, Color.yellow);
+        this.currentParticleTextBox = new TextBox(1000, 30, 100, 50, true, "Sand");
+        this.currentParticleRect = new FormalRectangle(1140, 45, 30, 30, false, Color.yellow);
         try {
             InputStream is = getClass().getResourceAsStream("/res/font/x12y16pxMaruMonica.ttf");
             if (is == null) {

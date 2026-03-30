@@ -22,7 +22,7 @@ public class Fire extends Particle{
             return;
         }
         for(int i = 0; i < 4; i++){
-            if(x+dir[i] >= 0 && x+dir[i] < Gamepanel.ScreenCol && y+dir[i+1] >= 0 && y+dir[i+1] < Gamepanel.ScreenCol && Gamepanel.Grid[x+dir[i]][y+dir[i+1]] != null){
+            if(x+dir[i] >= 0 && x+dir[i] < Gamepanel.ScreenCol && y+dir[i+1] >= 0 && y+dir[i+1] < Gamepanel.ScreenRow && Gamepanel.Grid[x+dir[i]][y+dir[i+1]] != null){
                 if(Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Wood" || Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Acid" || Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Gas"){
                     if(Math.random() > 0.75){
                         Gamepanel.Grid[x+dir[i]][y+dir[i+1]] = new Fire(x+dir[i], y+dir[i+1], 0, 0);

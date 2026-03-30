@@ -36,7 +36,7 @@ public class Acid extends Particle{
             d_y = 0;
         }
         for(int i = 0; i < 4; i++){
-            if(x+dir[i] >= 0 && x+dir[i] < Gamepanel.ScreenCol && y+dir[i+1] >= 0 && y+dir[i+1] < Gamepanel.ScreenCol && Gamepanel.Grid[x+dir[i]][y+dir[i+1]] != null){
+            if(x+dir[i] >= 0 && x+dir[i] < Gamepanel.ScreenCol && y+dir[i+1] >= 0 && y+dir[i+1] < Gamepanel.ScreenRow && Gamepanel.Grid[x+dir[i]][y+dir[i+1]] != null){
                 if(Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Stone" || Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Wood" || Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Sand"){
                     if(Math.random() > 0.9){
                         Gamepanel.Grid[x+dir[i]][y+dir[i+1]] = null;
@@ -47,7 +47,7 @@ public class Acid extends Particle{
             }
         }
         for(int i = 0; i < 4; i++){
-            if(x+dir[i] >= 0 && x+dir[i] < Gamepanel.ScreenCol && y+dir[i+1] >= 0 && y+dir[i+1] < Gamepanel.ScreenCol && Gamepanel.Grid[x+dir[i]][y+dir[i+1]] != null){
+            if(x+dir[i] >= 0 && x+dir[i] < Gamepanel.ScreenCol && y+dir[i+1] >= 0 && y+dir[i+1] < Gamepanel.ScreenRow && Gamepanel.Grid[x+dir[i]][y+dir[i+1]] != null){
                 if(Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Water"){
                     if(Math.random() >= 0.7f){
                         Gamepanel.Grid[x+dir[i]][y+dir[i+1]] = new Acid(x+dir[i], y+dir[i+1], Gamepanel.Grid[x+dir[i]][y+dir[i+1]].d_x, Gamepanel.Grid[x+dir[i]][y+dir[i+1]].d_y);

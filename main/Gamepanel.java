@@ -136,6 +136,13 @@ public class Gamepanel extends JPanel implements Runnable{
                     Grid[mouseH.mouseX][mouseH.mouseY-1] = new Smoke(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
                     Grid[mouseH.mouseX][mouseH.mouseY] = new Smoke(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
                 }
+                else if(currentParticle == Particle.Steam){
+                    Grid[1+mouseH.mouseX][mouseH.mouseY] = new Steam(1+mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][1+mouseH.mouseY] = new Steam(mouseH.mouseX, 1+mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX-1][mouseH.mouseY] = new Steam(mouseH.mouseX-1, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY-1] = new Steam(mouseH.mouseX, mouseH.mouseY-1, mouseH.mouse_dx, mouseH.mouse_dy);
+                    Grid[mouseH.mouseX][mouseH.mouseY] = new Steam(mouseH.mouseX, mouseH.mouseY, mouseH.mouse_dx, mouseH.mouse_dy);
+                }
             }
         }
         for(int i = ScreenCol - 1 ; i >= 0 ; i--){

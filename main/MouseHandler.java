@@ -7,7 +7,7 @@ import javax.swing.event.MouseInputAdapter;
 public class MouseHandler extends MouseInputAdapter{
     public int mouse_dx = 0;
     public int mouse_dy = 0;
-    public int Acceleration = 5;
+    public int Acceleration = 3;
     public int mouseX = 0;
     public int mouseY = 0;
     public int originMouseX = 0;

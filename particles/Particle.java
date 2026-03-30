@@ -7,7 +7,7 @@ import java.util.Map;
 import main.Gamepanel;
 
 public class Particle{
-    public static int ParticleCategories = 8;
+    public static int ParticleCategories = 9;
     public static int Sand = 0;
     public static int Water = 1;
     public static int Stone = 2;
@@ -16,6 +16,7 @@ public class Particle{
     public static int Gas = 5;
     public static int Fire = 6;
     public static int Smoke = 7;
+    public static int Steam = 8;
 
     private static final Map<Integer, String> toString = new HashMap<>();
     static {
@@ -27,6 +28,7 @@ public class Particle{
         toString.put(5, "Gas");
         toString.put(6, "Fire");
         toString.put(7, "Smoke");
+        toString.put(8, "Steam");
 
     }
 
@@ -40,6 +42,7 @@ public class Particle{
         toColor.put(5, new Color(152,251,152));
         toColor.put(6, Color.red);
         toColor.put(7, Color.darkGray);
+        toColor.put(8, Color.LIGHT_GRAY);
 
     }
 
@@ -99,13 +102,30 @@ public class Particle{
                     Gamepanel.Grid[x][y+dy].ChangePlace(x, y);
                     y += dy;
                 }
+                else if(Gamepanel.Grid[x][y+dy].density == this.density && Math.random() > 0.5f){
+                    Gamepanel.Grid[x][y+dy].ChangePlace(x, y);
+                    y += dy;
+                }
                 else break;
             }
             if(y != _y) flg = true;
         }
         else if (d_y == 0 && d_x != 0){
             int dx = d_x / Math.abs(d_x), _x = x + d_x;
-            while(x + dx >= 0 && Gamepanel.Grid[x+dx][y] == null && x != _x && x <= Gamepanel.ScreenCol - 1) x += dx;
+            while(x + dx >= 0 && x != _x && x <= Gamepanel.ScreenCol - 1){
+                if(Gamepanel.Grid[x+dx][y] == null){
+                    x += dx;
+                }
+                else if(Gamepanel.Grid[x+dx][y].density < this.density){
+                    Gamepanel.Grid[x+dx][y].ChangePlace(x, y);
+                    x += dx;
+                }
+                else if(Gamepanel.Grid[x+dx][y].density == this.density && Math.random() > 0.5f){
+                    Gamepanel.Grid[x+dx][y].ChangePlace(x, y);
+                    x += dx;
+                }
+                else break;
+            }
             if(x != _x) flg = true;
         }
         else{
@@ -137,6 +157,11 @@ public class Particle{
                         x = _x;
                         y = _y;
                     }
+                    else if(Gamepanel.Grid[_x][_y].density == this.density && Math.random() > 0.5f){
+                        Gamepanel.Grid[_x][_y].ChangePlace(x, y);
+                        x = _x;
+                        y = _y;
+                    }
                     else{
                         flg = true;
                         break;
@@ -157,6 +182,11 @@ public class Particle{
                         y = _y;
                     }
                     else if(Gamepanel.Grid[_x][_y].density < this.density){
+                        Gamepanel.Grid[_x][_y].ChangePlace(x, y);
+                        x = _x;
+                        y = _y;
+                    }
+                    else if(Gamepanel.Grid[_x][_y].density == this.density && Math.random() > 0.5f){
                         Gamepanel.Grid[_x][_y].ChangePlace(x, y);
                         x = _x;
                         y = _y;
