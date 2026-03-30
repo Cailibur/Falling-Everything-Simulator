@@ -1,13 +1,11 @@
 package main;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 
 
 import javax.swing.event.MouseInputAdapter;
 
 public class MouseHandler extends MouseInputAdapter{
-    private Gamepanel gp = Gamepanel.getInstance();
     public int mouse_dx = 0;
     public int mouse_dy = 0;
     public int Acceleration = 1;

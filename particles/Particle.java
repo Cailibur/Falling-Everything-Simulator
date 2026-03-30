@@ -37,7 +37,7 @@ public class Particle{
     private static final Map<Integer, Color> toColor = new HashMap<>();
     static {
         toColor.put(0, Color.yellow);
-        toColor.put(1, Color.blue);
+        toColor.put(1, new Color(176, 224, 230));
         toColor.put(2, Color.gray);
         toColor.put(3, new Color(139,69,19));
         toColor.put(4, Color.green);

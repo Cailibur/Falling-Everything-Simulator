@@ -15,7 +15,7 @@ public class Lava extends Particle{
     public void update(){
         if(y != Gamepanel.ScreenRow - 1){
             if(Gamepanel.Grid[x][y+1] != null){
-                d_y = Math.random() > 0.5f ? -1 : 1;
+                d_y = Math.random() > 0.99f ? -1 : 1;
                 if(d_x == 0){
                     d_x = Math.random() > 0.5f ? 1 : -1;
                     if(x+d_x >= Gamepanel.ScreenCol || x + d_x < 0){
@@ -42,7 +42,7 @@ public class Lava extends Particle{
                     }
                 }
                 else if(Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Water"){
-                    Gamepanel.Grid[x+dir[i]][y+dir[i+1]] = new Steam(x+dir[i], y+dir[i+1], Math.random() > 0.5f ? -1 : 1, -1);
+                    Gamepanel.Grid[x+dir[i]][y+dir[i+1]] = new Smoke(x+dir[i], y+dir[i+1], Math.random() > 0.5f ? -1 : 1, -1);
                     Gamepanel.Grid[x][y] = new Stone(x, y, 0, 0);
                     return;
                 }

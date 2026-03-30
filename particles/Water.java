@@ -7,7 +7,7 @@ import main.Gamepanel;
 public class Water extends Particle{
     
     public Water(int x, int y, int d_x, int d_y) {
-        super(x, y, d_x, d_y, 1, "Water", Color.blue);
+        super(x, y, d_x, d_y, 1, "Water", new Color(176, 224, 230));
     }
 
     @Override

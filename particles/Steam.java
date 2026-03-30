@@ -16,7 +16,7 @@ public class Steam extends Particle{
             if(Gamepanel.Grid[x][y-1] != null){
                 d_y = Math.random() > 0.5 ? -2 : -1;
                 if(d_x == 0){
-                    d_x = Math.random() > 0.5f ? 1 : -1;
+                    d_x = Math.random() > 0.5f ? 2 : -2;
                     if(x+d_x >= Gamepanel.ScreenCol || x + d_x < 0){
                         d_x = -d_x;
                         if(x+d_x >= Gamepanel.ScreenCol || x + d_x < 0) d_x = 0;
@@ -30,15 +30,15 @@ public class Steam extends Particle{
             else d_y = Math.random() > 0.5 ? -2 : -1;
         }
         else{
-            if(d_x == 0) d_x = Math.random() > 0.5f ? 1 : -1;
+            if(d_x == 0) d_x = Math.random() > 0.5f ? 2 : -2;
             d_y = 0;
             if(Math.random() > 0.99){
                 Gamepanel.Grid[x][y] = new Water(x, y, 0, 0);
                 return;
             }
         }
-        if(d_x > 1) d_x = 1;
-        if(d_x < -1) d_x = -1; 
+        if(d_x > 1) d_x = 2;
+        if(d_x < -1) d_x = -2; 
         super.update();
     }
     

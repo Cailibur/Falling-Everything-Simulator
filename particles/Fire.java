@@ -9,7 +9,7 @@ public class Fire extends Particle{
     private int[] dir = {0, 1, 0, -1, 0};
     public Fire(int x, int y, int d_x, int d_y) {
         super(x, y, d_x, d_y, -1, "Fire", Color.red);
-        this.lifetime = 10;
+        this.lifetime = (int)(Math.random() * 10) + 5;
     }
 
     @Override
