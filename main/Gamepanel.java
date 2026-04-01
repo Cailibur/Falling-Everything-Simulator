@@ -157,6 +157,18 @@ public class Gamepanel extends JPanel implements Runnable{
                 
             }
         }
+        if(mouseH.mouse_Erase && PanelStateMachine.currentState.stateName != "TitleState"){
+             if(mouseH.mouseX >= 0 && mouseH.mouseX < ScreenCol && mouseH.mouseY >= 0 && mouseH.mouseY < ScreenRow){
+                for(int i = mouseH.mouseX - drawFieldR ; i <= mouseH.mouseX + drawFieldR ; i++){
+                    for(int j = mouseH.mouseY - drawFieldR ; j <= mouseH.mouseY + drawFieldR ; j++){
+                        if((i-mouseH.mouseX)*(i-mouseH.mouseX)+(j-mouseH.mouseY)*(j-mouseH.mouseY) <= drawFieldR*drawFieldR && i >= 0 && i < ScreenCol && j >= 0 && j < ScreenRow){
+                            Grid[i][j] = null;
+                        }
+                    }
+                }
+                
+            }
+        }
         for(int i = ScreenCol - 1 ; i >= 0 ; i--){
             for(int j = ScreenRow - 1 ; j >= 0 ; j--){
                 if(Grid[i][j] != null && !Grid[i][j].Updated && PanelStateMachine.currentState.stateName == "RunningState") Grid[i][j].update();

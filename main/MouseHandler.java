@@ -14,7 +14,7 @@ public class MouseHandler extends MouseInputAdapter{
     public int mouseY = 0;
     public int originMouseX = 0;
     public int originMouseY = 0;
-    public boolean mouse_dragged = false;
+    public boolean mouse_dragged = false, mouse_Erase = false;
 
     private static MouseHandler mouseHInstance;
 
@@ -49,6 +49,9 @@ public class MouseHandler extends MouseInputAdapter{
         if(e.getButton() == MouseEvent.BUTTON1){
             mouse_dragged = true;
         }
+        if(e.getButton() == MouseEvent.BUTTON3){
+            mouse_Erase = true;
+        }
     }
 
     @Override
@@ -73,6 +76,9 @@ public class MouseHandler extends MouseInputAdapter{
         mouseY = originMouseY / Gamepanel.displaySize;
         if(e.getButton() == MouseEvent.BUTTON1){
             mouse_dragged = false;
+        }
+        if(e.getButton() == MouseEvent.BUTTON3){
+            mouse_Erase = false;
         }
     }
 

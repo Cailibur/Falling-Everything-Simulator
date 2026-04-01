@@ -5,7 +5,7 @@ import java.awt.Color;
 import main.Gamepanel;
 
 public class Dyna extends Particle{
-    private int lifetime = (int)(Math.random() * 10) + 10;
+    private int lifetime = (int)(Math.random() * 10) + 20;
     private int[][] dir = {{1, 1}, {1, 0}, {1, -1}, {0, 1}, {0, -1}, {-1, 1}, {-1, 0}, {-1, -1}};
     static final Color[] Dyna_Colors = {new Color(195, 95, 75), new Color(165, 65, 55), new Color(120, 45,40)};
 
@@ -57,12 +57,15 @@ public class Dyna extends Particle{
                         isIgnite = false;
                         break;
                     }
+                    if(Gamepanel.Grid[x+dir[i][0]][y+dir[i][1]].particleName == "Dyna" && Math.random() > 0.99f){
+                        Gamepanel.Grid[x+dir[i][0]][y+dir[i][1]].isIgnite = true;
+                    }
                     Gamepanel.Grid[x+dir[i][0]][y+dir[i][1]].d_x += dir[i][0] * 3;
                     Gamepanel.Grid[x+dir[i][0]][y+dir[i][1]].d_y += dir[i][1] * 3;
                 }
             }
         }
-        if(lifetime <= 0){
+        if(lifetime <= 0 && (Gamepanel.Grid[x][y+1] != null || y == Gamepanel.ScreenRow - 1)){
             Gamepanel.Grid[x][y] = new Fire(x, y, d_x, d_y);
             for(int i = 0 ; i < 8 ; i++){
                 if(x + dir[i][0] >= 0 && x + dir[i][0] < Gamepanel.ScreenCol && y + dir[i][1] >= 0 && y + dir[i][1] <= Gamepanel.ScreenRow && Gamepanel.Grid[x+dir[i][0]][y+dir[i][1]] != null){

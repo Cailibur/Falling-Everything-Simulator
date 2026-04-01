@@ -53,7 +53,7 @@ public class UI {
                 g2d.drawString(text, getXforCenterText(text, g2d), getYforCenterText(text, g2d));
             }
         };
-        this.guideButton = new Button(30, 30, 40, 40, true, "?"){
+        this.guideButton = new Button(30, 30, 40, 40, true, "!"){
             @Override
             public void Onclick(){
                 Onguide = !Onguide;
