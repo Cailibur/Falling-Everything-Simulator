@@ -9,7 +9,7 @@ public class Smoke extends Particle {
 
     public Smoke(int x, int y, int d_x, int d_y) {
         super(x, y, d_x, d_y, -1, "Smoke", Color.darkGray);
-        this.lifetime = 10;
+        this.lifetime = (int)(Math.random() * 10) + 5;
     }
     
     @Override

@@ -11,18 +11,54 @@ import UIToolBox.*;
 import particles.Particle;
 
 public class UI {
+    private boolean Onguide = false;
     private Gamepanel gp;
     private Font maruMonica;
     private TextBox currentParticleTextBox;
+    private TextBox guide1, guide2, guide3;
     private FormalRectangle currentParticleRect;
     public DrawField mouseDrawField;
     private MouseHandler mouseH = MouseHandler.getInstance();
+    private Button guideButton;
 
     public UI(){
         this.gp = Gamepanel.getInstance();
         this.currentParticleTextBox = new TextBox(1000, 30, 100, 50, true, "Sand");
         this.currentParticleRect = new FormalRectangle(1140, 45, 30, 30, false, Color.yellow);
         this.mouseDrawField = new DrawField(0, 0, 0, 0, false);
+        this.guide1 = new TextBox(130, 90, 100, 50, true, "W&S to switch the particle."){
+            @Override
+            public void Draw(Graphics2D g2d){
+                g2d.setColor(Color.white);
+                g2d.setFont(maruMonica);
+                g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 30f));
+                g2d.drawString(text, getXforCenterText(text, g2d), getYforCenterText(text, g2d));
+            }
+        };
+        this.guide2 = new TextBox(65, 140, 100, 50, true, "Space to pause."){
+            @Override
+            public void Draw(Graphics2D g2d){
+                g2d.setColor(Color.white);
+                g2d.setFont(maruMonica);
+                g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 30f));
+                g2d.drawString(text, getXforCenterText(text, g2d), getYforCenterText(text, g2d));
+            }
+        };
+        this.guide3 = new TextBox(300, 190, 100, 50, true, "Drag a photo into the window and something will happen."){
+            @Override
+            public void Draw(Graphics2D g2d){
+                g2d.setColor(Color.white);
+                g2d.setFont(maruMonica);
+                g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 30f));
+                g2d.drawString(text, getXforCenterText(text, g2d), getYforCenterText(text, g2d));
+            }
+        };
+        this.guideButton = new Button(30, 30, 40, 40, true, "?"){
+            @Override
+            public void Onclick(){
+                Onguide = !Onguide;
+            }
+        };
         try {
             InputStream is = getClass().getResourceAsStream("/res/font/x12y16pxMaruMonica.ttf");
             if (is == null) {
@@ -35,7 +71,7 @@ public class UI {
     }
 
     public void update(){
-        
+        guideButton.update();
     }
 
     public void draw(Graphics2D g2d){
@@ -46,6 +82,12 @@ public class UI {
             currentParticleTextBox.Draw(g2d);
             currentParticleRect.Draw(g2d);
             mouseDrawField.Draw(g2d);
+            guideButton.Draw(g2d);
+            if(Onguide){
+                guide1.Draw(g2d);
+                guide2.Draw(g2d);
+                guide3.Draw(g2d);
+            }
         }
         if(gp.PanelStateMachine.currentState.stateName == "PauseState"){
             drawPauseScreen(g2d);
@@ -57,11 +99,12 @@ public class UI {
 
     public void drawPauseScreen(Graphics2D g2d){
         g2d.setFont(maruMonica);
-        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 32f));
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 80f));
         g2d.setColor(Color.gray);
-        g2d.drawString("Paused", 32, 52);
+        int _x = getXforCenterText("Paused", g2d), _y = getYforCenterText("Paused", g2d);
+        g2d.drawString("Paused", _x, _y);
         g2d.setColor(Color.white);
-        g2d.drawString("Paused", 30, 50);
+        g2d.drawString("Paused", _x - 3, _y - 3);
     }
 
     public void drawTitleScreen(Graphics2D g2d){
@@ -90,5 +133,11 @@ public class UI {
         int length = (int)g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
         int x = Gamepanel.ScreenWidth / 2 - length / 2;
         return x;
+    }
+
+    protected int getYforCenterText(String text, Graphics2D g2d){
+        int length = (int)g2d.getFontMetrics().getStringBounds(text, g2d).getHeight();
+        int _y = Gamepanel.ScreenHeight / 2 + length / 3;
+        return _y;
     }
 }

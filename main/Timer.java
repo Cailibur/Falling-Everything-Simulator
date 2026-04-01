@@ -1,6 +1,6 @@
 package main;
 public class Timer {
-    final int FPS = 80;
+    final int FPS = 60;
     double drawInternal = 1000000000 / FPS;
     double delta = 0;
     long lastTime = System.nanoTime();

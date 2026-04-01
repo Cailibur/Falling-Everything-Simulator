@@ -33,6 +33,13 @@ public class Fire extends Particle{
                         d_x = d_y = 0;
                     }
                 }
+                if(Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Water"){
+                    Gamepanel.Grid[x][y] = null;
+                    return;
+                }
+                if(Gamepanel.Grid[x+dir[i]][y+dir[i+1]].particleName == "Dyna"){
+                    Gamepanel.Grid[x+dir[i]][y+dir[i+1]].isIgnite = true;
+                }
             }
         }
         super.update();

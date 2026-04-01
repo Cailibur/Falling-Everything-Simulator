@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 public class TextBox extends UIContainer {
-    private String text;
+    public String text;
 
     public TextBox(int x, int y, int width, int height, boolean visible, String text) {
         super(x, y, width, height, visible);

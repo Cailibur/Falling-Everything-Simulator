@@ -3,6 +3,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
+    public Gamepanel gp;
     public boolean up, down, left, right, pause = false, start = false;
     public boolean OnpressUp = false, OnpressDown = false, OnpressLeft = false, OnpressRight = false;
 
@@ -38,7 +39,7 @@ public class KeyHandler implements KeyListener{
             right = true;
         }
         if(code == KeyEvent.VK_SPACE){
-            pause = !pause;
+            if(gp.PanelStateMachine.currentState.stateName != "TitleState") pause = !pause;
             //System.out.println("YES");
         }
         if(code == KeyEvent.VK_ENTER){

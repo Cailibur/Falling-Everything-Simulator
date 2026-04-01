@@ -1,7 +1,5 @@
 package main;
 import java.awt.dnd.DropTarget;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DnDConstants;
 import java.awt.datatransfer.Transferable;
@@ -11,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import javax.imageio.ImageIO;
@@ -55,6 +52,8 @@ public class Gamepanel extends JPanel implements Runnable{
     private Gamepanel() {
         keyH = new KeyHandler();
         mouseH = new MouseHandler();
+        mouseH.gp = this;
+        keyH.gp = this;
         this.setPreferredSize(new Dimension(ScreenWidth , ScreenHeight)); // Generate the Window
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); //Open the double buffer
@@ -62,25 +61,11 @@ public class Gamepanel extends JPanel implements Runnable{
         //Listening to the mouse(pressing and dragging)
         this.addMouseListener(mouseH);
         this.addMouseMotionListener(mouseH);
-        this.addMouseWheelListener(new MouseWheelListener() {
-
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                if(e.getWheelRotation() == 1){
-                    drawFieldR = Math.max(drawFieldR - 1 , 1);
-                    MainUI.mouseDrawField.ChangeR(drawFieldR);
-                }
-                if(e.getWheelRotation() == -1){
-                    drawFieldR = Math.min(drawFieldR + 1 , 20);
-                    MainUI.mouseDrawField.ChangeR(drawFieldR);
-                }
-            }
-            
-        });
+        this.addMouseWheelListener(mouseH);
         setDropTarget(new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent dtde) {
-                try {
+                if(PanelStateMachine.currentState != titleState) try {
                     dtde.acceptDrop(DnDConstants.ACTION_COPY);
                     Transferable tr = dtde.getTransferable();
                     if (tr.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
@@ -132,7 +117,7 @@ public class Gamepanel extends JPanel implements Runnable{
             if(mouseH.mouseX >= 0 && mouseH.mouseX < ScreenCol && mouseH.mouseY >= 0 && mouseH.mouseY < ScreenRow){
                 for(int i = mouseH.mouseX - drawFieldR ; i <= mouseH.mouseX + drawFieldR ; i++){
                     for(int j = mouseH.mouseY - drawFieldR ; j <= mouseH.mouseY + drawFieldR ; j++){
-                        if((i-mouseH.mouseX)*(i-mouseH.mouseX)+(j-mouseH.mouseY)*(j-mouseH.mouseY) <= drawFieldR*drawFieldR && i >= 0 && i < ScreenCol && j >= 0 && j < ScreenRow){
+                        if((i-mouseH.mouseX)*(i-mouseH.mouseX)+(j-mouseH.mouseY)*(j-mouseH.mouseY) <= drawFieldR*drawFieldR && i >= 0 && i < ScreenCol && j >= 0 && j < ScreenRow && Grid[i][j] == null){
                             if(currentParticle == Particle.Sand){
                                 Grid[i][j] = new Sand(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
                             }
@@ -162,6 +147,9 @@ public class Gamepanel extends JPanel implements Runnable{
                             }
                             else if(currentParticle == Particle.Lava){
                                 Grid[i][j] = new Lava(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
+                            }
+                            else if(currentParticle == Particle.Dyna){
+                                Grid[i][j] = new Dyna(i, j, mouseH.mouse_dx, mouseH.mouse_dy);
                             }
                         }
                     }
@@ -231,13 +219,14 @@ public class Gamepanel extends JPanel implements Runnable{
             for(int i = 0 ; i < ScreenCol ; i++){
                 for(int j = 0 ; j < ScreenRow ; j++){
                     int rgb = originalImage.getRGB(i * originalImage.getWidth() / ScreenCol , j * originalImage.getHeight() / ScreenRow);
+                    int alpha = (rgb >> 24) & 0xFF;
                     int red = (rgb >> 16) & 0xFF;
                     int green = (rgb >> 8)  & 0xFF;
                     int blue = rgb & 0xFF;
                     int minC = 0;
                     if(red == 0 && green == 0 && blue == 0) continue;
                     for(int p = 0 ; p < Particle.ParticleCategories ; p++){
-                        if((red - Particle.getColor(p).getRed())*(red - Particle.getColor(p).getRed()) + (blue - Particle.getColor(p).getBlue())*(blue - Particle.getColor(p).getBlue()) + (green - Particle.getColor(p).getGreen())*(green - Particle.getColor(p).getGreen()) < (red - Particle.getColor(minC).getRed())*(red - Particle.getColor(minC).getRed()) + (blue - Particle.getColor(minC).getBlue())*(blue - Particle.getColor(minC).getBlue()) + (green - Particle.getColor(minC).getGreen())*(green - Particle.getColor(minC).getGreen())) minC = p;
+                        if((alpha - Particle.getColor(p).getAlpha())*(alpha - Particle.getColor(p).getAlpha()) + (red - Particle.getColor(p).getRed())*(red - Particle.getColor(p).getRed()) + (blue - Particle.getColor(p).getBlue())*(blue - Particle.getColor(p).getBlue()) + (green - Particle.getColor(p).getGreen())*(green - Particle.getColor(p).getGreen()) < (alpha - Particle.getColor(minC).getAlpha())*(alpha - Particle.getColor(minC).getAlpha()) + (red - Particle.getColor(minC).getRed())*(red - Particle.getColor(minC).getRed()) + (blue - Particle.getColor(minC).getBlue())*(blue - Particle.getColor(minC).getBlue()) + (green - Particle.getColor(minC).getGreen())*(green - Particle.getColor(minC).getGreen())) minC = p;
                     }
                     if(minC == Particle.Sand){
                         Grid[i][j] = new Sand(i, j, mouseH.mouse_dx, mouseH.mouse_dy);

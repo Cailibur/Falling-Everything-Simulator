@@ -1,11 +1,12 @@
 package main;
 
 import java.awt.event.MouseEvent;
-
+import java.awt.event.MouseWheelEvent;
 
 import javax.swing.event.MouseInputAdapter;
 
 public class MouseHandler extends MouseInputAdapter{
+    public Gamepanel gp;
     public int mouse_dx = 0;
     public int mouse_dy = 0;
     public int Acceleration = 1;
@@ -45,7 +46,9 @@ public class MouseHandler extends MouseInputAdapter{
         originMouseY = e.getY();
         mouseX = originMouseX / Gamepanel.displaySize;
         mouseY = originMouseY / Gamepanel.displaySize;
-        mouse_dragged = true;
+        if(e.getButton() == MouseEvent.BUTTON1){
+            mouse_dragged = true;
+        }
     }
 
     @Override
@@ -68,7 +71,21 @@ public class MouseHandler extends MouseInputAdapter{
         originMouseY = e.getY();
         mouseX = originMouseX / Gamepanel.displaySize;
         mouseY = originMouseY / Gamepanel.displaySize;
-        mouse_dragged = false;
+        if(e.getButton() == MouseEvent.BUTTON1){
+            mouse_dragged = false;
+        }
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if(e.getWheelRotation() == 1){
+            gp.drawFieldR = Math.max(gp.drawFieldR - 1 , 1);
+            gp.MainUI.mouseDrawField.ChangeR(gp.drawFieldR);
+        }
+        if(e.getWheelRotation() == -1){
+            gp.drawFieldR = Math.min(gp.drawFieldR + 1 , 20);
+            gp.MainUI.mouseDrawField.ChangeR(gp.drawFieldR);
+        }
     }
     
 }

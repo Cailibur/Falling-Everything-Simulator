@@ -20,25 +20,38 @@ public class Button extends UIContainer{
 
     public void Draw(Graphics2D g2d){
         if(visible == true){
-            g2d.setColor(Color.gray);
+            g2d.setColor(Color.darkGray);
             g2d.fillRect(x-5, y-5, width+10, height+10);
-            if(mouseFloating == false) g2d.setColor(Color.white);
+            if(activated) g2d.setColor(Color.darkGray);
+            else if(mouseFloating == false) g2d.setColor(Color.white);
             else g2d.setColor(Color.LIGHT_GRAY);
             g2d.fillRect(x, y, width, height);
             g2d.setFont(maruMonica);
             g2d.setColor(Color.black);
-            g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 30f));
+            g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 43f));
             g2d.drawString(buttonName, getXforCenterText(buttonName, g2d), getYforCenterText(buttonName, g2d));
         }
     }
 
     public void update(){
-        if(mouseH.originMouseX >= x && mouseH.originMouseX <= x + width && mouseH.originMouseY >= y && mouseH.originMouseY <= y + height){
+        if(visible && mouseH.originMouseX >= x && mouseH.originMouseX <= x + width && mouseH.originMouseY >= y && mouseH.originMouseY <= y + height){
             this.mouseFloating = true;
         }
         else{
             this.mouseFloating = false;
         }
+        if(this.mouseFloating && mouseH.mouse_dragged && !activated){
+            activated = true;
+
+            Onclick();
+        }
+        if(!mouseH.mouse_dragged && activated){
+            activated = false;
+        }
+    }
+
+    public void Onclick(){
+
     }
 
 }

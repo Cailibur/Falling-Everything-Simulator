@@ -7,7 +7,7 @@ import java.util.Map;
 import main.Gamepanel;
 
 public class Particle{
-    public static int ParticleCategories = 10;
+    public static int ParticleCategories = 11;
     public static int Sand = 0;
     public static int Water = 1;
     public static int Stone = 2;
@@ -18,6 +18,7 @@ public class Particle{
     public static int Smoke = 7;
     public static int Steam = 8;
     public static int Lava = 9;
+    public static int Dyna = 10;
 
     private static final Map<Integer, String> toString = new HashMap<>();
     static {
@@ -31,14 +32,15 @@ public class Particle{
         toString.put(7, "Smoke");
         toString.put(8, "Steam");
         toString.put(9, "Lava");
+        toString.put(10, "Dyna");
 
     }
 
     private static final Map<Integer, Color> toColor = new HashMap<>();
     static {
-        toColor.put(0, Color.yellow);
-        toColor.put(1, new Color(176, 224, 230));
-        toColor.put(2, Color.gray);
+        toColor.put(0, new Color(243, 224, 178));
+        toColor.put(1, new Color(168, 217, 235));
+        toColor.put(2, new Color(122, 114,102));
         toColor.put(3, new Color(139,69,19));
         toColor.put(4, Color.green);
         toColor.put(5, new Color(152,251,152));
@@ -46,6 +48,7 @@ public class Particle{
         toColor.put(7, Color.darkGray);
         toColor.put(8, Color.LIGHT_GRAY);
         toColor.put(9, new Color(207, 16, 32));
+        toColor.put(10, new Color(165, 65, 55));
 
     }
 
@@ -71,6 +74,7 @@ public class Particle{
     public boolean Updated;
     protected Gamepanel gp;
     public String particleName;
+    public boolean isIgnite = false;
     public Particle(int x, int y, int d_x, int d_y, int density, String particleName, Color particle_color){
         this.x = x;
         this.y = y;
@@ -97,7 +101,7 @@ public class Particle{
         boolean flg = false;
         if(d_x == 0 && d_y != 0){
             int dy = d_y / Math.abs(d_y), _y = y + d_y;
-            while(y + dy >= 0 && y != _y && y <= Gamepanel.ScreenRow - 1){
+            while(y + dy >= 0 && y != _y && y + dy < Gamepanel.ScreenRow){
                 if(Gamepanel.Grid[x][y+dy] == null){
                     y += dy;
                 }
@@ -115,7 +119,7 @@ public class Particle{
         }
         else if (d_y == 0 && d_x != 0){
             int dx = d_x / Math.abs(d_x), _x = x + d_x;
-            while(x + dx >= 0 && x != _x && x <= Gamepanel.ScreenCol - 1){
+            while(x + dx >= 0 && x != _x && x + dx < Gamepanel.ScreenCol){
                 if(Gamepanel.Grid[x+dx][y] == null){
                     x += dx;
                 }
