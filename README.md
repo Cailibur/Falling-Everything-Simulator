@@ -5,9 +5,7 @@ A simulator which inspired by Noita
   <img height="300" src="res/pics/top.png">
 </p>
 
-To run this project, you need JDK and an IDE locally.
-
-Please download the files and compile.
+Please choose the latest release and download it.
 
 As this is my first github project, if you have any questions, please ask me!
 
