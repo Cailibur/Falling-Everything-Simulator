@@ -32,7 +32,7 @@ public class Lava extends Particle{
         }
         else{
             if(d_x == 0) d_x = Math.random() > 0.5f ? 1 : -1;
-            d_y = Math.random() > 0.5f ? -1 : 0;
+            d_y = Math.random() > 0.99f ? -1 : 0;
         }
         for(int i = 0; i < 4; i++){
             if(x+dir[i] >= 0 && x+dir[i] < Gamepanel.ScreenCol && y+dir[i+1] >= 0 && y+dir[i+1] < Gamepanel.ScreenRow && Gamepanel.Grid[x+dir[i]][y+dir[i+1]] != null){

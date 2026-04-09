@@ -1,0 +1,42 @@
+Date : 2026-04-01 16:56:42
+Directory : d:\Java Script\Noita Simulator(Java Edition)
+Total : 13 files,  308 codes, 0 comments, 21 blanks, all 329 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         12 |        296 |          0 |         14 |        310 |
+| Markdown |          1 |         12 |          0 |          7 |         19 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                 | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                    |         13 |        308 |          0 |         21 |        329 |
+| . (Files)                                                            |          1 |         12 |          0 |          7 |         19 |
+| UIToolBox                                                            |          1 |         10 |          0 |          3 |         13 |
+| main                                                                 |          4 |        196 |          0 |          3 |        199 |
+| particles                                                            |          7 |         90 |          0 |          8 |         98 |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                             | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\Java Script\Noita Simulator(Java Edition)\README.md               | Markdown |         12 |          0 |          7 |         19 |
+| d:\Java Script\Noita Simulator(Java Edition)\UIToolBox\Button.java   | Java     |         10 |          0 |          3 |         13 |
+| d:\Java Script\Noita Simulator(Java Edition)\main\Gamepanel.java     | Java     |        113 |          0 |          2 |        115 |
+| d:\Java Script\Noita Simulator(Java Edition)\main\KeyHandler.java    | Java     |          1 |          0 |          0 |          1 |
+| d:\Java Script\Noita Simulator(Java Edition)\main\MouseHandler.java  | Java     |         33 |          0 |          1 |         34 |
+| d:\Java Script\Noita Simulator(Java Edition)\main\UI.java            | Java     |         49 |          0 |          0 |         49 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Dyna.java     | Java     |         73 |          0 |          7 |         80 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Fire.java     | Java     |          7 |          0 |          0 |          7 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Particle.java | Java     |          4 |          0 |          0 |          4 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Sand.java     | Java     |          1 |          0 |          0 |          1 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Stone.java    | Java     |          1 |          0 |          0 |          1 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Water.java    | Java     |          3 |          0 |          1 |          4 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Wood.java     | Java     |          1 |          0 |          0 |          1 |
+| Total                                                                |          |        308 |          0 |         21 |        329 |
++----------------------------------------------------------------------+----------+------------+------------+------------+------------+

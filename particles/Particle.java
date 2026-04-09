@@ -224,7 +224,12 @@ public class Particle{
     public void Draw(Graphics2D g2d){
         Updated = false;
         g2d.setColor(particle_color);
-        g2d.fillRect(x * Gamepanel.displaySize, y * Gamepanel.displaySize, Gamepanel.displaySize , Gamepanel.displaySize);
+        g2d.fillRect(x * Gamepanel.displaySize, y * Gamepanel.displaySize, Gamepanel.displaySize, Gamepanel.displaySize);
+        // for(int i = 1 ; i <= 2 ; i++){
+        //     g2d.setColor(new Color(particle_color.getRed() , particle_color.getGreen(), particle_color.getBlue(), particle_color.getAlpha() * (2 - i) / 2));
+        //     g2d.fillRect(x * Gamepanel.displaySize - i, y * Gamepanel.displaySize - i, Gamepanel.displaySize + 2 * i, Gamepanel.displaySize + 2 * i);
+        // }
+        
     }
 
 }
