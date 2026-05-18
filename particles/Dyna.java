@@ -10,7 +10,7 @@ public class Dyna extends Particle{
     static final Color[] Dyna_Colors = {new Color(195, 95, 75), new Color(165, 65, 55), new Color(120, 45,40)};
 
     public Dyna(int x, int y, int d_x, int d_y) {
-        super(x, y, d_x, d_y, 5, "Dyna", Dyna_Colors[(int)(Math.random()*3.0f)]);
+        super(x, y, d_x, d_y, 3, "Dyna", Dyna_Colors[(int)(Math.random()*3.0f)]);
         
     }
     

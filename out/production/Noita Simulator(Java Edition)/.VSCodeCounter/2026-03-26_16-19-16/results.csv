@@ -1,0 +1,24 @@
+"filename", "language", "Java", "comment", "blank", "total"
+"d:\Java Script\Noita Simulator(Java Edition)\UIToolBox\Button.java", "Java", 37, 0, 7, 44
+"d:\Java Script\Noita Simulator(Java Edition)\UIToolBox\FormalRectangle.java", "Java", 17, 0, 7, 24
+"d:\Java Script\Noita Simulator(Java Edition)\UIToolBox\TextBox.java", "Java", 20, 0, 6, 26
+"d:\Java Script\Noita Simulator(Java Edition)\UIToolBox\UIContainer.java", "Java", 43, 0, 8, 51
+"d:\Java Script\Noita Simulator(Java Edition)\main\Gamepanel.java", "Java", 161, 9, 14, 184
+"d:\Java Script\Noita Simulator(Java Edition)\main\KeyHandler.java", "Java", 59, 2, 9, 70
+"d:\Java Script\Noita Simulator(Java Edition)\main\Main.java", "Java", 8, 0, 2, 10
+"d:\Java Script\Noita Simulator(Java Edition)\main\MouseHandler.java", "Java", 50, 0, 12, 62
+"d:\Java Script\Noita Simulator(Java Edition)\main\Timer.java", "Java", 18, 0, 1, 19
+"d:\Java Script\Noita Simulator(Java Edition)\main\UI.java", "Java", 73, 1, 11, 85
+"d:\Java Script\Noita Simulator(Java Edition)\main\Window.java", "Java", 17, 1, 1, 19
+"d:\Java Script\Noita Simulator(Java Edition)\particles\Acid.java", "Java", 55, 1, 6, 62
+"d:\Java Script\Noita Simulator(Java Edition)\particles\Fire.java", "Java", 35, 1, 6, 42
+"d:\Java Script\Noita Simulator(Java Edition)\particles\Gas.java", "Java", 35, 0, 6, 41
+"d:\Java Script\Noita Simulator(Java Edition)\particles\Particle.java", "Java", 179, 1, 13, 193
+"d:\Java Script\Noita Simulator(Java Edition)\particles\Sand.java", "Java", 46, 0, 7, 53
+"d:\Java Script\Noita Simulator(Java Edition)\particles\Smoke.java", "Java", 42, 0, 6, 48
+"d:\Java Script\Noita Simulator(Java Edition)\particles\Stone.java", "Java", 12, 0, 5, 17
+"d:\Java Script\Noita Simulator(Java Edition)\particles\Water.java", "Java", 33, 0, 7, 40
+"d:\Java Script\Noita Simulator(Java Edition)\particles\Wood.java", "Java", 12, 0, 5, 17
+"d:\Java Script\Noita Simulator(Java Edition)\statemachine\State.java", "Java", 17, 0, 6, 23
+"d:\Java Script\Noita Simulator(Java Edition)\statemachine\Statemachine.java", "Java", 10, 0, 3, 13
+"Total", "-", 979, 16, 148, 1143

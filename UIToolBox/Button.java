@@ -34,12 +34,6 @@ public class Button extends UIContainer{
     }
 
     public void update(){
-        if(visible && mouseH.originMouseX >= x && mouseH.originMouseX <= x + width && mouseH.originMouseY >= y && mouseH.originMouseY <= y + height){
-            this.mouseFloating = true;
-        }
-        else{
-            this.mouseFloating = false;
-        }
         if(this.mouseFloating && mouseH.mouse_dragged && !activated){
             activated = true;
 
@@ -47,6 +41,12 @@ public class Button extends UIContainer{
         }
         if(!mouseH.mouse_dragged && activated){
             activated = false;
+        }
+        if(visible && mouseH.originMouseX >= x && mouseH.originMouseX <= x + width && mouseH.originMouseY >= y && mouseH.originMouseY <= y + height && !mouseH.mouse_dragged){
+            this.mouseFloating = true;
+        }
+        else{
+            this.mouseFloating = false;
         }
     }
 

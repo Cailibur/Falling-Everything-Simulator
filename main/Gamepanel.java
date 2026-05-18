@@ -182,7 +182,15 @@ public class Gamepanel extends JPanel implements Runnable{
             currentParticle = (currentParticle + 1) % Particle.ParticleCategories;
             keyH.OnpressDown = true;
         }
-
+        if(keyH.right && !keyH.OnpressRight && PanelStateMachine.currentState.stateName == "PauseState"){
+            for(int i = ScreenCol - 1 ; i >= 0 ; i--){
+                for(int j = ScreenRow - 1 ; j >= 0 ; j--){
+                    if(Grid[i][j] != null && !Grid[i][j].Updated) Grid[i][j].update();
+                }
+            }
+            keyH.OnpressRight = true;
+        }
+        System.out.println(PanelStateMachine.currentState.stateName);
         if(PanelStateMachine.currentState.stateName == "TitleState"){
             if(keyH.start) PanelStateMachine.ChangeState(runningState);
         }
@@ -219,13 +227,13 @@ public class Gamepanel extends JPanel implements Runnable{
         if (!(fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") ||
                 fileName.endsWith(".png") || fileName.endsWith(".gif") ||
                 fileName.endsWith(".bmp"))) {
-            JOptionPane.showMessageDialog(this, "不支持的文件类型，请选择图片文件。");
+            JOptionPane.showMessageDialog(this, "不支持的文件类型，请选择图片文件");
             return;
         }
         try {
             BufferedImage originalImage = ImageIO.read(file);
             if (originalImage == null) {
-                JOptionPane.showMessageDialog(this, "无法读取图片，文件可能损坏或格式不支持。");
+                JOptionPane.showMessageDialog(this, "无法读取图片，文件可能损坏或格式不支持");
                 return;
             }
             for(int i = 0 ; i < ScreenCol ; i++){

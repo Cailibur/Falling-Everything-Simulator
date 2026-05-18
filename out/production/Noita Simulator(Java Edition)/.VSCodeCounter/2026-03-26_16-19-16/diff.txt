@@ -1,0 +1,43 @@
+Date : 2026-03-26 16:19:16
+Directory : d:\Java Script\Noita Simulator(Java Edition)
+Total : 16 files,  304 codes, -1 comments, 52 blanks, all 355 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         16 |        304 |         -1 |         52 |        355 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                        | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                           |         16 |        304 |         -1 |         52 |        355 |
+| UIToolBox                                                                   |          4 |        103 |          0 |         24 |        127 |
+| main                                                                        |          3 |         49 |         -1 |          5 |         53 |
+| particles                                                                   |          9 |        152 |          0 |         23 |        175 |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                    | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\Java Script\Noita Simulator(Java Edition)\UIToolBox\Button.java          | Java     |         23 |          0 |          3 |         26 |
+| d:\Java Script\Noita Simulator(Java Edition)\UIToolBox\FormalRectangle.java | Java     |         17 |          0 |          7 |         24 |
+| d:\Java Script\Noita Simulator(Java Edition)\UIToolBox\TextBox.java         | Java     |         20 |          0 |          6 |         26 |
+| d:\Java Script\Noita Simulator(Java Edition)\UIToolBox\UIContainer.java     | Java     |         43 |          0 |          8 |         51 |
+| d:\Java Script\Noita Simulator(Java Edition)\main\Gamepanel.java            | Java     |         23 |          0 |          0 |         23 |
+| d:\Java Script\Noita Simulator(Java Edition)\main\MouseHandler.java         | Java     |         12 |         -1 |          2 |         13 |
+| d:\Java Script\Noita Simulator(Java Edition)\main\UI.java                   | Java     |         14 |          0 |          3 |         17 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Acid.java            | Java     |          1 |          0 |          0 |          1 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Fire.java            | Java     |         35 |          1 |          6 |         42 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Gas.java             | Java     |         35 |          0 |          6 |         41 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Particle.java        | Java     |         42 |          0 |          6 |         48 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Sand.java            | Java     |         -1 |          0 |          0 |         -1 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Smoke.java           | Java     |         42 |          0 |          6 |         48 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Stone.java           | Java     |         -1 |          0 |          0 |         -1 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Water.java           | Java     |         -1 |         -1 |          0 |         -2 |
+| d:\Java Script\Noita Simulator(Java Edition)\particles\Wood.java            | Java     |          0 |          0 |         -1 |         -1 |
+| Total                                                                       |          |        304 |         -1 |         52 |        355 |
++-----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
